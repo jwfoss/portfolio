@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Jeff Hoyle — Writer & Journalist</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #1a1a1a;
+      --paper: #f5f0e8;
+      --cream: #ede8da;
+      --accent: #c0392b;
+      --muted: #7a7060;
+      --border: #d4cfc2;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+    }
+
+    /* ── TOP BAR ── */
+    .topbar {
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      animation: fadeDown 0.6s ease both;
+    }
+    .topbar span { opacity: 0.6; }
+
+    /* ── HERO ── */
+    .hero {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 5rem 2rem 3rem;
+      animation: fadeUp 0.7s ease 0.1s both;
+    }
+    .hero-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.2rem;
+      font-weight: 500;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 6vw, 4.5rem);
+      line-height: 1.1;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.01em;
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+    .hero-desc {
+      font-size: 1.05rem;
+      color: #3a3530;
+      max-width: 560px;
+      line-height: 1.75;
+      margin-bottom: 2.5rem;
+    }
+
+    /* ── PUBLICATION DOTS ── */
+    .pub-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+      margin-bottom: 0;
+      animation: fadeUp 0.7s ease 0.25s both;
+    }
+    .pub-dot {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+    }
+    .pub-dot::before {
+      content: '';
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+    }
+    .dot-wired::before    { background: #1a1a1a; }
+    .dot-outside::before  { background: #2e7d32; }
+    .dot-mensj::before    { background: #1565c0; }
+    .dot-maxim::before    { background: var(--accent); }
+    .dot-5280::before     { background: #6a1b9a; }
+    .dot-skiing::before   { background: #0277bd; }
+    .dot-ski::before      { background: #00838f; }
+
+    /* ── DIVIDER ── */
+    .divider {
+      max-width: 780px;
+      margin: 3rem auto;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── BEATS SECTION ── */
+    .section {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      animation: fadeUp 0.7s ease 0.35s both;
+    }
+    .section-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 2rem;
+      font-weight: 500;
+    }
+
+    /* ── BEAT CARDS ── */
+    .beat-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 3rem;
+    }
+    .beat-card {
+      background: white;
+      padding: 1.6rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.2s ease, transform 0.2s ease;
+      cursor: default;
+    }
+    .beat-card:last-child { border-bottom: none; }
+    .beat-card:hover {
+      background: var(--cream);
+    }
+    .beat-left { display: flex; flex-direction: column; gap: 0.3rem; }
+    .beat-number {
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 500;
+    }
+    .beat-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+    }
+    .beat-desc {
+      font-size: 0.82rem;
+      color: var(--muted);
+      max-width: 440px;
+      line-height: 1.55;
+    }
+    .beat-arrow {
+      color: var(--accent);
+      font-size: 1.1rem;
+      flex-shrink: 0;
+      margin-left: 2rem;
+      opacity: 0.7;
+      transition: transform 0.2s;
+    }
+    .beat-card:hover .beat-arrow { transform: translateX(4px); opacity: 1; }
+
+    /* ── FLYWHEEL / HOW IT CONNECTS ── */
+    .connect-block {
+      background: var(--ink);
+      color: var(--paper);
+      border-radius: 6px;
+      padding: 2.5rem 2rem;
+      margin-bottom: 3rem;
+      animation: fadeUp 0.7s ease 0.45s both;
+    }
+    .connect-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #9a8e7a;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+    .connect-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      margin-bottom: 2rem;
+      font-weight: 700;
+    }
+    .connect-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .connect-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    .step-num {
+      background: var(--accent);
+      color: white;
+      font-size: 0.65rem;
+      font-weight: 700;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+      letter-spacing: 0;
+    }
+    .step-text {
+      font-size: 0.88rem;
+      color: #c8bfaf;
+      line-height: 1.6;
+    }
+    .step-text strong { color: var(--paper); font-weight: 500; }
+
+    /* ── FOOTER ── */
+    footer {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 2rem 2rem 4rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.75rem;
+      color: var(--muted);
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      .hero { padding: 3rem 1.5rem 2rem; }
+      .section { padding: 0 1.5rem; }
+      .beat-card { flex-direction: column; align-items: flex-start; gap: 0.8rem; }
+      .beat-arrow { margin-left: 0; }
+      footer { padding: 2rem 1.5rem 3rem; flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <span>Portfolio · Journalism &amp; Longform</span>
+    <span>Available for assignments</span>
+  </div>
+
+  <!-- HERO -->
+  <header class="hero">
+    <p class="hero-label">Jeff Hoyle — Writer</p>
+    <h1>Words that move<br/><em>people outdoors.</em></h1>
+    <p class="hero-desc">
+      Adventure, skiing, fitness, and the culture of the mountains — reported and written for the publications that cover it best. A decade of bylines across print and digital, from gear labs to backcountry ridgelines.
+    </p>
+
+    <div class="pub-row">
+      <span class="pub-dot dot-wired">Wired</span>
+      <span class="pub-dot dot-outside">Outside</span>
+      <span class="pub-dot dot-mensj">Men's Journal</span>
+      <span class="pub-dot dot-maxim">Maxim</span>
+      <span class="pub-dot dot-5280">5280</span>
+      <span class="pub-dot dot-skiing">Skiing Magazine</span>
+      <span class="pub-dot dot-ski">Ski Magazine</span>
+    </div>
+  </header>
+
+  <div class="divider"></div>
+
+  <!-- BEAT CARDS -->
+  <section class="section">
+    <p class="section-label">Coverage Beats</p>
+    <div class="beat-grid">
+
+      <div class="beat-card">
+        <div class="beat-left">
+          <span class="beat-number">Beat 01</span>
+          <span class="beat-title">Snow &amp; Mountain Life</span>
+          <span class="beat-desc">Ski culture, resort reporting, backcountry access, and the communities built around vertical feet.</span>
+        </div>
+        <span class="beat-arrow">→</span>
+      </div>
+
+      <div class="beat-card">
+        <div class="beat-left">
+          <span class="beat-number">Beat 02</span>
+          <span class="beat-title">Adventure &amp; Endurance</span>
+          <span class="beat-desc">Long-distance challenges, expedition features, and the psychology of pushing human limits.</span>
+        </div>
+        <span class="beat-arrow">→</span>
+      </div>
+
+      <div class="beat-card">
+        <div class="beat-left">
+          <span class="beat-number">Beat 03</span>
+          <span class="beat-title">Gear &amp; Technology</span>
+          <span class="beat-desc">Field-tested reviews and trend analysis — from ski boots to wearables — for audiences who actually use the stuff.</span>
+        </div>
+        <span class="beat-arrow">→</span>
+      </div>
+
+      <div class="beat-card">
+        <div class="beat-left">
+          <span class="beat-number">Beat 04</span>
+          <span class="beat-title">Health, Fitness &amp; Men's Lifestyle</span>
+          <span class="beat-desc">Performance, recovery, and the real-world habits of athletes — reported with honesty, not hype.</span>
+        </div>
+        <span class="beat-arrow">→</span>
+      </div>
+
+      <div class="beat-card">
+        <div class="beat-left">
+          <span class="beat-number">Beat 05</span>
+          <span class="beat-title">Colorado &amp; the Mountain West</span>
+          <span class="beat-desc">Local culture, civic stories, and deep dives into one of America's most dynamic regions — as published in 5280.</span>
+        </div>
+        <span class="beat-arrow">→</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- HOW IT CONNECTS -->
+  <section class="section">
+    <div class="connect-block">
+      <p class="connect-label">How the work fits together</p>
+      <h2 class="connect-title">The Through Line</h2>
+      <div class="connect-steps">
+        <div class="connect-step">
+          <span class="step-num">01</span>
+          <p class="step-text"><strong>On-the-ground reporting.</strong> Stories come from being there — on the slope, on the trail, in the locker room.</p>
+        </div>
+        <div class="connect-step">
+          <span class="step-num">02</span>
+          <p class="step-text"><strong>Human-first framing.</strong> Whether it's gear or culture, the story is always about people and why they care.</p>
+        </div>
+        <div class="connect-step">
+          <span class="step-num">03</span>
+          <p class="step-text"><strong>Right fit, right publication.</strong> Each piece is shaped for its outlet — a Wired story reads nothing like a 5280 feature, and that's by design.</p>
+        </div>
+        <div class="connect-step">
+          <span class="step-num">04</span>
+          <p class="step-text"><strong>An archive that compounds.</strong> Each byline is linked here — browse by beat, or scroll the full list. Links coming soon.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span>© Jeff Hoyle · All rights reserved</span>
+    <span>Article links coming soon · <a href="/cdn-cgi/l/email-protection#9d">Get in touch</a></span>
+  </fo
