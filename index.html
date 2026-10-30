@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Jeff Foss — Writer & Journalist</title>
+  <title>Jeff Foss — Writer &amp; Journalist</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -44,22 +44,105 @@
     .section { max-width: 780px; margin: 0 auto; padding: 0 2rem 4rem; }
     .section-label { font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); margin-bottom: 2rem; font-weight: 500; }
 
-    .pub-group { margin-bottom: 3rem; }
-    .pub-header { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1rem; padding-left: 1rem; border-left: 3px solid var(--pub-color, var(--border)); }
-    .pub-name { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; }
-    .pub-count { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); background: var(--cream); padding: 0.2rem 0.5rem; border-radius: 2px; }
-    .pub-note { font-size: 0.7rem; color: var(--muted); font-style: italic; }
+    .pub-group { margin-bottom: 2rem; }
 
-    .article-list { border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
-    .article-card { display: block; padding: 1rem 1.4rem; border-bottom: 1px solid var(--border); text-decoration: none; color: var(--ink); background: white; transition: background 0.15s ease; }
-    .article-card:last-child { border-bottom: none; }
-    .article-card:hover { background: var(--cream); }
-    .article-card.coming-soon { opacity: 0.45; pointer-events: none; }
-    .card-top { display: flex; align-items: center; gap: 0.75rem; }
-    .article-title { font-size: 0.88rem; font-weight: 500; line-height: 1.4; flex: 1; text-align: left; }
-    .article-arrow { color: var(--accent); opacity: 0.5; flex-shrink: 0; transition: transform 0.15s, opacity 0.15s; }
-    .article-card:hover .article-arrow { transform: translateX(3px); opacity: 1; }
-    .article-tag { display: inline-block; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); background: var(--cream); padding: 0.15rem 0.4rem; border-radius: 2px; flex-shrink: 0; }
+    /* Expandable Accordion Headers */
+    .pub-header {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      user-select: none;
+      padding: 0.85rem 1rem;
+      border-radius: 4px;
+      border-left: 3.5px solid var(--pub-color, var(--border));
+      transition: background-color 0.2s ease, opacity 0.15s ease;
+    }
+    .pub-header:hover {
+      background-color: rgba(0, 0, 0, 0.035);
+    }
+    .pub-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+    .chevron-icon {
+      color: var(--muted);
+      flex-shrink: 0;
+      transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.2s ease;
+    }
+    .pub-header:hover .chevron-icon {
+      color: var(--ink);
+    }
+    .pub-group.open .chevron-icon {
+      transform: rotate(180deg);
+      color: var(--ink);
+    }
+
+    /* Article List Panels */
+    .article-list {
+      display: none;
+      margin-top: 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .pub-group.open .article-list {
+      display: block;
+    }
+    .article-card {
+      display: block;
+      padding: 1rem 1.4rem;
+      border-bottom: 1px solid var(--border);
+      text-decoration: none;
+      color: var(--ink);
+      background: white;
+      transition: background 0.15s ease;
+    }
+    .article-card:last-child {
+      border-bottom: none;
+    }
+    .article-card:hover {
+      background: var(--cream);
+    }
+    .article-card.coming-soon {
+      opacity: 0.45;
+      pointer-events: none;
+    }
+    .card-top {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .article-title {
+      font-size: 0.88rem;
+      font-weight: 500;
+      line-height: 1.4;
+      flex: 1;
+      text-align: left;
+    }
+    .article-arrow {
+      color: var(--accent);
+      opacity: 0.5;
+      flex-shrink: 0;
+      transition: transform 0.15s, opacity 0.15s;
+    }
+    .article-card:hover .article-arrow {
+      transform: translateX(3px);
+      opacity: 1;
+    }
+    .article-tag {
+      display: inline-block;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      background: var(--cream);
+      padding: 0.15rem 0.4rem;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
 
     .connect-block { background: var(--ink); color: var(--paper); border-radius: 6px; padding: 2.5rem 2rem; margin-bottom: 3rem; }
     .connect-label { font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: #9a8e7a; margin-bottom: 0.5rem; font-weight: 500; }
@@ -75,15 +158,7 @@
 
     @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
     @media (max-width: 600px) { .hero { padding: 3rem 1.5rem 2rem; } .section { padding: 0 1.5rem 3rem; } footer { flex-direction: column; padding: 2rem 1.5rem 3rem; } }
-  
-    /* Expandable sections */
-    .pub-header { cursor: pointer; user-select: none; justify-content: space-between; }
-    .pub-header::after { content: '›'; font-size: 1.2rem; color: #999; transform: rotate(90deg); display: inline-block; transition: transform 0.2s; margin-left: auto; padding-left: 0.5rem; }
-    .pub-group.open .pub-header::after { transform: rotate(270deg); }
-    .article-list { display: none; }
-    .pub-group.open .article-list { display: block; }
-    .pub-header:hover .pub-name { opacity: 0.8; }
-    </style>
+  </style>
 </head>
 <body>
 
@@ -116,7 +191,12 @@
 
   <!-- OUTSIDE MAGAZINE -->
   <div class="pub-group" style="--pub-color:#2e7d32">
-    <div class="pub-header"><span class="pub-name">Outside Magazine</span></div>
+    <div class="pub-header">
+      <span class="pub-name">Outside Magazine</span>
+      <svg class="chevron-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+    </div>
     <div class="article-list">
       <a class="article-card" href="https://www.outsideonline.com/outdoor-gear/bikes-and-biking/yuba-supermarche/" target="_blank">
         <div class="card-top"><span class="article-title">🚲 Trade Your Car In and Buy This Cargo Bike Instead</span><span class="article-arrow">→</span></div>
@@ -219,7 +299,12 @@
 
   <!-- WIRED -->
   <div class="pub-group" style="--pub-color:#1a1a1a">
-    <div class="pub-header"><span class="pub-name">Wired Magazine</span></div>
+    <div class="pub-header">
+      <span class="pub-name">Wired Magazine</span>
+      <svg class="chevron-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+    </div>
     <div class="article-list">
       <a class="article-card" href="https://www.wired.com/2014/10/my-strava-problem/" target="_blank">
         <div class="card-top"><span class="article-title">🏃 My Strava Problem</span><span class="article-arrow">→</span></div>
@@ -229,7 +314,12 @@
 
   <!-- SKIING MAGAZINE -->
   <div class="pub-group" style="--pub-color:#0277bd">
-    <div class="pub-header"><span class="pub-name">Skiing Magazine</span></div>
+    <div class="pub-header">
+      <span class="pub-name">Skiing Magazine</span>
+      <svg class="chevron-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+    </div>
     <div class="article-list">
       <a class="article-card" href="Skiing Magazine - Take Me Out To The Booterpark.pdf" target="_blank">
         <div class="card-top"><span class="article-title">🏂 Take Me Out To The Booterpark</span><span class="article-arrow">→</span></div>
@@ -251,7 +341,12 @@
 
   <!-- FREEZE MAGAZINE -->
   <div class="pub-group" style="--pub-color:#4fc3f7">
-    <div class="pub-header"><span class="pub-name">Freeze Magazine</span></div>
+    <div class="pub-header">
+      <span class="pub-name">Freeze Magazine</span>
+      <svg class="chevron-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+    </div>
     <div class="article-list">
       <a class="article-card" href="Freeze Magazine - Sage Cattabriga Feature.pdf" target="_blank">
         <div class="card-top"><span class="article-title">💰 Dishrags to Riches</span><span class="article-arrow">→</span></div>
@@ -309,7 +404,12 @@
 
   <!-- MEN'S JOURNAL -->
   <div class="pub-group" style="--pub-color:#1565c0">
-    <div class="pub-header"><span class="pub-name">Men's Journal</span></div>
+    <div class="pub-header">
+      <span class="pub-name">Men's Journal</span>
+      <svg class="chevron-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+    </div>
     <div class="article-list">
       <a class="article-card" href="https://www.mensjournal.com/gear/the-shark-detecting-wetsuit-20131106" target="_blank">
         <div class="card-top"><span class="article-title">🦈 The Shark-Detecting Wetsuit</span><span class="article-arrow">→</span></div>
@@ -331,7 +431,12 @@
 
   <!-- MAXIM -->
   <div class="pub-group" style="--pub-color:#c0392b">
-    <div class="pub-header"><span class="pub-name">Maxim Magazine</span></div>
+    <div class="pub-header">
+      <span class="pub-name">Maxim Magazine</span>
+      <svg class="chevron-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+    </div>
     <div class="article-list">
       <a class="article-card" href="https://www.maxim.com/gear/atocha-design-openclose-series-wants-coddle-your-vinyl/" target="_blank">
         <div class="card-top"><span class="article-title">🎵 The Atocha Design Open/Close Series Wants to Coddle Your Vinyl</span><span class="article-arrow">→</span></div>
@@ -420,7 +525,7 @@
       <a class="article-card" href="Maxim - Vincent Lecavalier Interview.pdf" target="_blank">
         <div class="card-top"><span class="article-title">🏒 Vincent Lecavalier Interview</span><span class="article-arrow">→</span></div>
       </a>
-<a class="article-card" href="Freeze Magazine - Jeremy Bloom, Golden Boy.pdf" target="_blank">
+      <a class="article-card" href="Freeze Magazine - Jeremy Bloom, Golden Boy.pdf" target="_blank">
         <div class="card-top"><span class="article-title">🏅 Jeremy Bloom: Golden Boy</span><span class="article-arrow">→</span></div>
       </a>
       <a class="article-card" href="Stuff - Best Mountain Bikes.pdf" target="_blank">
@@ -453,12 +558,14 @@
     </div>
   </div>
 
-  <!-- STUFF MAGAZINE -->
-  
-
   <!-- FATHERLY -->
   <div class="pub-group" style="--pub-color:#e67e22">
-    <div class="pub-header"><span class="pub-name">Fatherly</span></div>
+    <div class="pub-header">
+      <span class="pub-name">Fatherly</span>
+      <svg class="chevron-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+    </div>
     <div class="article-list">
       <a class="article-card" href="https://www.fatherly.com/gear/tentsile-hanging-tree-tent-test-with-toddler" target="_blank">
         <div class="card-top"><span class="article-title">⛺ Tentsile Hanging Tree Tent: Tested with a Toddler</span><span class="article-arrow">→</span></div>
@@ -501,7 +608,12 @@
 
   <!-- DENVER POST -->
   <div class="pub-group" style="--pub-color:#e53935">
-    <div class="pub-header"><span class="pub-name">Denver Post</span></div>
+    <div class="pub-header">
+      <span class="pub-name">Denver Post</span>
+      <svg class="chevron-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+    </div>
     <div class="article-list">
       <a class="article-card" href="Denver Post - You're Obviously Gonna Ache.pdf" target="_blank">
         <div class="card-top"><span class="article-title">🧘 YOGA: You're Obviously Gonna Ache</span><span class="article-arrow">→</span></div>
@@ -509,20 +621,20 @@
     </div>
   </div>
 
-
-  <!-- TODAY -->
-
-
   <!-- 5280 MAGAZINE -->
   <div class="pub-group" style="--pub-color:#c0392b">
-    <div class="pub-header"><span class="pub-name">5280 Magazine</span></div>
+    <div class="pub-header">
+      <span class="pub-name">5280 Magazine</span>
+      <svg class="chevron-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+    </div>
     <div class="article-list">
       <a class="article-card" href="https://5280.com/run-fish-sip/" target="_blank">
         <div class="card-top"><span class="article-title">🎣 Run, Fish, Sip</span><span class="article-arrow">→</span></div>
       </a>
     </div>
   </div>
-
 
 </section>
 
